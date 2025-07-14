@@ -292,6 +292,13 @@
   "containers.Dashboard.activeUser": "Active User",
   "containers.Dashboard.deviceChart": "Devices",
   "containers.Dashboard.inActiveUser": "In-active User",
-  "containers.Criminal.fullName": "Full name",
-  "containers.Criminal.birthPlace": "Birth place"
+  "containers.Criminal.helmetTitle": "Criminal Manager",
+  "containers.Criminal.dashboard": "Dashboard",
+  "containers.Criminal.pageHeader": "Criminal",
+  "containers.Criminal.addCriminal": "Add criminal",
+  "containers.Criminal.table.name": "Name",
+  "containers.Criminal.table.birthDate": "Birth date",
+  "containers.Criminal.table.address": "Address",
+  "containers.Criminal.table.tags": "Tags",
+  "containers.Criminal.table.action": "Action"
 }

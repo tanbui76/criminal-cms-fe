@@ -55,7 +55,7 @@ const CreateRoutePermission = {
   path: '/users',
 };
 
-const Users = () => {
+function Users() {
   const dispatch = useDispatch();
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
@@ -146,6 +146,6 @@ const Users = () => {
       <EditUserModal visible={editUser} onCancel={() => setEditUser(false)} />
     </div>
   );
-};
+}
 
 export default Users;
