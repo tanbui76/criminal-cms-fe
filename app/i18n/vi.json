@@ -1,0 +1,67 @@
+{
+  "common.messages.cancel": "Hủy bỏ",
+  "common.messages.editLabel": "Chỉnh sửa",
+  "common.messages.okLabel": "Ok",
+  "common.messages.removeLabel": "Xóa",
+  "common.messages.pagination": "Hiển thị từ {start} đến {end} trong tổng số {total}",
+
+  "components.SearchInput.searchPlaceHolder": "Tìm kiếm",
+
+  "common.messages.success": "Thành công",
+  "common.messages.updateSuccess": "Cập nhật data thành công!",
+  "common.messages.addSuccess": "Thêm dữ liệu thành công!",
+  "common.messages.deleteSuccess": "Xóa phạm nhân thành công!",
+
+  "routes.messages.rolePage": "Vai Trò",
+  "routes.messages.dashboard": "Bảng điều khiển",
+  "routes.messages.permissionPage": "Phân Quyền",
+  "routes.messages.userPage": "Quản lý người dùng",
+  "routes.messages.emailTemplatePage": "Mẫu email",
+
+  "containers.PermissionDeniedPage.back": "Quay lại trang chủ",
+  "common.messages.otpLabel": "Xác minh mật khẩu một lần",
+  "common.messages.validateLabel": "Xác thực",
+
+  "containers.PermissionDeniedPage.header": "Quyền bị từ chối",
+  "containers.PermissionDeniedPage.message": "Ồ! Bạn không có quyền truy cập trang này.",
+
+  "containers.Dashboard.totalUser": "Total User",
+  "containers.Dashboard.activeUser": "Active User",
+  "containers.Dashboard.deviceChart": "Devices",
+  "containers.Dashboard.inActiveUser": "In-active User",
+  "containers.Criminal.helmetTitle": "Quản lý phạm nhân",
+  "containers.Criminal.dashboardTitle": "Bảng điều khiển",
+  "containers.Criminal.pageHeader": "Criminal",
+  "containers.Criminal.addCriminal": "Thêm phạm nhân",
+  "containers.Criminal.table.name": "Name",
+  "containers.Criminal.table.birthDate": "Birth date",
+  "containers.Criminal.table.address": "Address",
+  "containers.Criminal.table.tags": "Tags",
+  "containers.Criminal.table.action": "Action",
+
+  "routes.messages.criminalPage": "Quản lý phạm nhân",
+
+  "containers.Criminal.fullName": "Họ và tên",
+  "containers.Criminal.fullNamePlaceHolder": "Nhập họ và tên",
+  "containers.Criminal.requiredFullNameField": "Vui lòng nhập họ và tên",
+  
+  "containers.Criminal.birthPlace": "Nơi sinh",
+  "containers.Criminal.birthPlaceHolder": "Nhập nơi sinh",
+  "containers.Criminal.requiredBirthPlaceField": "Vui lòng nhập nơi sinh",
+
+  "containers.Criminal.birthDate": "Ngày tháng năm sinh",
+  "containers.Criminal.requiredBirthDateField": "Vui lòng nhập ngày tháng năm sinh",
+
+  "containers.Criminal.address": "Hộ khẩu thường trú",
+  "containers.Criminal.addressHolder": "Nhập hộ khẩu thường trú",
+  "containers.Criminal.requiredAddressField": "Vui lòng nhập hộ khẩu thường trú",
+
+  "containers.Criminal.startExecuteDate": "Ngày bắt đầu chấp hành án",
+  "containers.Criminal.requiredStartExecuteDateField": "Vui lòng nhập ngày bắt đầu chấp hành án",
+
+  "containers.Criminal.endExecuteDate": "Ngày kết thúc thi hành án",
+  "containers.Criminal.requiredEndExecuteDateField": "Vui lòng nhập ngày kết thúc thi hành án",
+
+  "containers.Criminal.doneExecuteDate": "Ngày chấp hành án xong",
+  "containers.Criminal.requiredDoneExecuteDateField": "Vui lòng nhập ngày chấp hành án xong"
+}

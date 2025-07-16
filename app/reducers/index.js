@@ -19,6 +19,7 @@ import usersReducer from 'containers/Users/reducer';
 import DashboardReducer from 'containers/Dashboard/reducer';
 import emailTemplateReducer from 'containers/EmailTemplate/reducer';
 import homePageReducer from 'containers/HomePage/reducer';
+import CriminalsReducer from 'containers/Criminals/reducer';
 
 /**
  * Merges the main reducer with the router state and dynamically injected reducers
@@ -41,6 +42,7 @@ export default function createReducer(injectedReducers = {}) {
     permission: permissionReducer,
     users: usersReducer,
     emailTemplate: emailTemplateReducer,
+    criminals: CriminalsReducer,
     ...injectedReducers,
   });
 }

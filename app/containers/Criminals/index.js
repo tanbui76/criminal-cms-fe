@@ -1,25 +1,88 @@
 /* eslint-disable prettier/prettier */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useInjectSaga } from 'utils/injectSaga';
-import saga from 'containers/UserAccount/saga';
-import reducer from 'containers/UserAccount/reducer';
 import { useInjectReducer } from 'utils/injectReducer';
-import { Breadcrumb, Button, Tabs } from 'antd';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { Breadcrumb, Button } from 'antd';
+import { FormattedMessage } from 'react-intl';
 import { Helmet } from 'react-helmet';
 import { NavLink } from 'react-router-dom';
 import { PlusOutlined } from '@ant-design/icons';
 import SearchInput from 'components/SearchInput';
 import messages from 'containers/Criminals/messages';
 import CriminalTable from './criminalTable';
+import { POST, PUT } from 'utils/constants';
+import {
+  clearFormAction,
+  clearFormFieldAction,
+  deleteItemByIdAction,
+  getCriminalByIdAction,
+  queryCriminalsAction,
+  setFormMethodAction,
+  setIdAction,
+  setSearchKeywordAction,
+} from './action';
+import CreateCriminalModal from './createCriminalModal';
+import reducer from './reducer';
+import { useDispatch, useSelector } from 'react-redux';
+import saga from './saga';
+import { createStructuredSelector } from 'reselect';
+import {
+  makeIdSelector,
+  makeIsLoadingSelector,
+  makePageNumberSelector,
+  makePageSizeSelector,
+} from './selectors';
 
-const { TabPane } = Tabs;
-const key = 'userAccount';
+const key = 'criminals';
+
+const stateSelector = createStructuredSelector({
+  pageNumber: makePageNumberSelector(),
+  pageSize: makePageSizeSelector(),
+  isLoading: makeIsLoadingSelector(),
+  id: makeIdSelector(),
+});
 
 function Criminals() {
-  const intl = useIntl();
+  const dispatch = useDispatch();
   useInjectSaga({ key, saga });
   useInjectReducer({ key, reducer });
+
+  const [createCriminal, setCreateCriminal] = useState(false);
+
+  const { pageNumber, pageSize, isLoading, id } = useSelector(stateSelector);
+  const loadCriminals = () => dispatch(queryCriminalsAction());
+  const onKeywordChange = (keywords) =>
+    dispatch(setSearchKeywordAction(keywords)) && loadCriminals();
+  const onchangeFormMethod = (formMethod) =>
+    dispatch(setFormMethodAction(formMethod));
+
+  const onSetId = (entityId) => dispatch(setIdAction(entityId));
+
+  const onCreate = () => {
+    onchangeFormMethod(POST);
+    setCreateCriminal(true);
+  };
+
+  useEffect(() => {
+    loadCriminals();
+  }, [pageNumber, pageSize]);
+
+  const onEdit = (record) => {
+    onSetId(record.id);
+    onchangeFormMethod(PUT);
+    setCreateCriminal(true);
+  };
+
+  const onDelete = (record) => {
+    onSetId(null);
+    dispatch(deleteItemByIdAction(record.id));
+  };
+
+  useEffect(() => {
+    if (id) {
+      dispatch(getCriminalByIdAction());
+    }
+  }, [id]);
 
   return (
     <div className="truthy-wrapper">
@@ -48,19 +111,28 @@ function Criminals() {
       <div className="truthy-content-header">
         <div className="d-flex">
           <div className="add-wrap">
-            <Button type="primary">
+            <Button type="primary" onClick={onCreate}>
               <PlusOutlined /> <FormattedMessage {...messages.addCriminal} />
             </Button>
           </div>
           <div className="d-flex ml-auto search-wrap">
-            <SearchInput />
+            <SearchInput isLoading={isLoading} onSearch={onKeywordChange} />
           </div>
         </div>
       </div>
 
       <div className="truthy-table ">
-        <CriminalTable />
+        <CriminalTable onEdit={onEdit} onDelete={onDelete} />
       </div>
+      <CreateCriminalModal
+        visible={createCriminal}
+        onCancel={() => {
+          setCreateCriminal(false);
+          onSetId(null);
+          dispatch(clearFormFieldAction());
+          dispatch(clearFormAction());
+        }}
+      />
     </div>
   );
 }

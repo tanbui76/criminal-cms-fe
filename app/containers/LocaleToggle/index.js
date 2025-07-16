@@ -21,7 +21,7 @@ const stateSelector = createStructuredSelector({
 export function LocaleToggle() {
   const dispatch = useDispatch();
   // eslint-disable-next-line no-unused-vars
-  const [cookie, updateCookie] = useCookie('lang', 'en');
+  const [cookie, updateCookie] = useCookie('lang', 'vi');
   const { locale } = useSelector(stateSelector);
 
   const selectLocale = ({ key }) => {
