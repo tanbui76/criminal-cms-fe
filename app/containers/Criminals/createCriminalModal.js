@@ -1,20 +1,27 @@
 import React, { useEffect, useState } from 'react';
-import { Modal } from 'antd';
+import { Modal, Form, Input, DatePicker, Select, message } from 'antd';
 import { useIntl } from 'react-intl';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { makeDeviceSelector } from 'containers/App/selectors';
 import commonMessage from 'common/messages';
-import useGetCriminalForm from './hooks/useGetCriminalForm';
 import {
   makeClearFormFieldSelector,
   makeErrorSelector,
   makeIdSelector,
   makeInitialValuesSelector,
+  makeProfileTypesSelector,
 } from './selectors';
 import messages from './messages';
-import { clearFormAction, setFormValues, submitFormAction } from './action';
+import {
+  clearFormAction,
+  setFormValues,
+  submitFormAction,
+  queryProfileTypesAction,
+} from './action';
+
+const { TextArea } = Input;
 
 const stateSelector = createStructuredSelector({
   device: makeDeviceSelector(),
@@ -22,6 +29,7 @@ const stateSelector = createStructuredSelector({
   clearFormField: makeClearFormFieldSelector(),
   initialValues: makeInitialValuesSelector(),
   id: makeIdSelector(),
+  profileTypes: makeProfileTypesSelector(),
 });
 
 const CreateCriminalModal = ({ onCancel, visible }) => {
@@ -45,47 +53,66 @@ const CreateCriminalModal = ({ onCancel, visible }) => {
 
   const intl = useIntl();
   const dispatch = useDispatch();
-  const { errors, device, clearFormField, initialValues, id } =
+  const { errors, clearFormField, initialValues, id, profileTypes } =
     useSelector(stateSelector);
 
-  const {
-    Form,
-    form,
-    NameInput,
-    AddressInput,
-    BirthPlaceInput,
-    BirthdateInput,
-    StartExecuteDateInput,
-    EndExecuteDateInput,
-    DoneExecuteDateInput,
-  } = useGetCriminalForm({
-    formName: 'create-criminals',
-    device,
-    initialValues: id ? initialValues : {},
-    id
-  });
+  const [form] = Form.useForm();
+
+  useEffect(() => {
+    if (visible) {
+      dispatch(queryProfileTypesAction());
+    }
+  }, [visible, dispatch]);
 
   useEffect(() => {
     if (id && initialValues) {
-      form.setFieldsValue(initialValues);
+      const formValues = { ...initialValues };
+
+      if (formValues.profileTypes && Array.isArray(formValues.profileTypes)) {
+        formValues.profileTypeIds = formValues.profileTypes.map(
+          (item) => item.id,
+        );
+        delete formValues.profileTypes;
+      }
+
+      if (
+        formValues.profileTypeIds &&
+        Array.isArray(formValues.profileTypeIds)
+      ) {
+        if (
+          formValues.profileTypeIds.length > 0 &&
+          typeof formValues.profileTypeIds[0] === 'object'
+        ) {
+          formValues.profileTypeIds = formValues.profileTypeIds.map(
+            (item) => item.id,
+          );
+        }
+      }
+
+      form.setFieldsValue(formValues);
     } else {
       form.resetFields();
     }
   }, [id, initialValues, form]);
 
   const onSubmitCreateForm = async () => {
-    await form.validateFields();
-    const rawValues = form.getFieldsValue();
+    try {
+      await form.validateFields();
+      const rawValues = form.getFieldsValue();
 
-    const formattedValues = {
-      ...rawValues,
-      birthdate: rawValues.birthdate?.format('YYYY-MM-DD'),
-      startExecuteDate: rawValues.startExecuteDate?.format('YYYY-MM-DD'),
-      endExecuteDate: rawValues.endExecuteDate?.format('YYYY-MM-DD'),
-      doneExecuteDate: rawValues.doneExecuteDate?.format('YYYY-MM-DD'),
-    };
-    dispatch(setFormValues(formattedValues));
-    dispatch(submitFormAction());
+      const formattedValues = {
+        ...rawValues,
+        birthdate: rawValues.birthdate?.format('YYYY-MM-DD'),
+        startExecuteDate: rawValues.startExecuteDate?.format('YYYY-MM-DD'),
+        endExecuteDate: rawValues.endExecuteDate?.format('YYYY-MM-DD'),
+        doneExecuteDate: rawValues.doneExecuteDate?.format('YYYY-MM-DD'),
+      };
+      dispatch(setFormValues(formattedValues));
+      dispatch(submitFormAction());
+    } catch (error) {
+      console.error('Form validation error:', error);
+      message.error('Vui lòng kiểm tra lại thông tin');
+    }
   };
 
   const onCancelModal = () => {
@@ -105,28 +132,179 @@ const CreateCriminalModal = ({ onCancel, visible }) => {
 
   useEffect(() => {
     if (errors?.length) {
+      // Set validation errors to form
       form.setFields(errors);
+
+      // Show error message
+      const errorMessages = errors
+        .map((error) => error.errors?.[0])
+        .filter(Boolean);
+      if (errorMessages.length > 0) {
+        message.error(errorMessages[0]);
+      }
     }
-  }, [errors]);
+  }, [errors, form]);
+
+  // Get results array from profileTypes object
+  const profileTypesArray = profileTypes?.results || [];
+
+  // Convert profile types to options format with safety check
+  const profileTypeOptions = profileTypesArray.map((type) => ({
+    value: type.id,
+    label: type.name,
+  }));
+
+  // Determine modal title based on edit mode
+  const modalTitle = id
+    ? intl.formatMessage(messages.editCriminal)
+    : intl.formatMessage(messages.addCriminal);
 
   return (
     <Modal
-      title={intl.formatMessage(messages.addCriminal)}
+      title={modalTitle}
       visible={visible}
       onOk={onSubmitCreateForm}
       onCancel={onCancelModal}
       okText={intl.formatMessage(commonMessage.okLabel)}
       cancelText={intl.formatMessage(commonMessage.cancel)}
       width={width}
+      bodyStyle={{ maxHeight: '60vh', overflowY: 'auto' }}
+      style={{ top: '5vh' }}
+      centered
     >
-      <Form>
-        <NameInput />
-        <AddressInput />
-        <BirthPlaceInput />
-        <BirthdateInput />
-        <StartExecuteDateInput />
-        <EndExecuteDateInput />
-        <DoneExecuteDateInput />
+      <Form form={form} layout="vertical">
+        <Form.Item
+          label={intl.formatMessage(messages.fullName)}
+          name="name"
+          rules={[
+            {
+              required: true,
+              message: intl.formatMessage(messages.requiredFullNameField),
+            },
+          ]}
+        >
+          <Input
+            placeholder={intl.formatMessage(messages.fullNamePlaceHolder)}
+            style={{ padding: '0 12px' }}
+          />
+        </Form.Item>
+
+        <Form.Item
+          label={intl.formatMessage(messages.descriptionColumn)}
+          name="description"
+          rules={[
+            {
+              required: true,
+              message: intl.formatMessage(messages.requiredDescriptionField),
+            },
+          ]}
+        >
+          <TextArea
+            placeholder={intl.formatMessage(messages.descriptionPlaceHolder)}
+            rows={3}
+            showCount
+            maxLength={500}
+            className="ant-input-text-area"
+          />
+        </Form.Item>
+
+        <Form.Item
+          label={intl.formatMessage(messages.addressColumn)}
+          name="address"
+          rules={[
+            {
+              required: true,
+              message: intl.formatMessage(messages.requiredAddressField),
+            },
+          ]}
+        >
+          <Input
+            placeholder={intl.formatMessage(messages.addressHolder)}
+            style={{ padding: '0 12px' }}
+          />
+        </Form.Item>
+
+        <Form.Item
+          label={intl.formatMessage(messages.birthplaceColumn)}
+          name="birthplace"
+          rules={[
+            {
+              required: true,
+              message: intl.formatMessage(messages.requiredBirthPlaceField),
+            },
+          ]}
+        >
+          <Input
+            placeholder={intl.formatMessage(messages.birthPlaceHolder)}
+            style={{ padding: '0 12px' }}
+          />
+        </Form.Item>
+
+        <Form.Item
+          label={intl.formatMessage(messages.birthdateColumn)}
+          name="birthdate"
+          rules={[
+            {
+              required: true,
+              message: intl.formatMessage(messages.requiredBirthDateField),
+            },
+          ]}
+        >
+          <DatePicker format="DD/MM/YYYY" style={{ width: '100%' }} />
+        </Form.Item>
+
+        <Form.Item
+          label={intl.formatMessage(messages.startExecuteDateColumn)}
+          name="startExecuteDate"
+          rules={[
+            {
+              required: true,
+              message: intl.formatMessage(
+                messages.requiredStartExecuteDateField,
+              ),
+            },
+          ]}
+        >
+          <DatePicker format="DD/MM/YYYY" style={{ width: '100%' }} />
+        </Form.Item>
+
+        <Form.Item
+          label={intl.formatMessage(messages.endExecuteDateColumn)}
+          name="endExecuteDate"
+          rules={[
+            {
+              required: true,
+              message: intl.formatMessage(messages.requiredEndExecuteDateField),
+            },
+          ]}
+        >
+          <DatePicker format="DD/MM/YYYY" style={{ width: '100%' }} />
+        </Form.Item>
+
+        <Form.Item
+          label={intl.formatMessage(messages.doneExecuteDate)}
+          name="doneExecuteDate"
+        >
+          <DatePicker format="DD/MM/YYYY" style={{ width: '100%' }} />
+        </Form.Item>
+
+        <Form.Item
+          label={intl.formatMessage(messages.profileTypesColumn)}
+          name="profileTypeIds"
+          rules={[
+            {
+              required: true,
+              message: intl.formatMessage(messages.requiredProfileTypesField),
+            },
+          ]}
+        >
+          <Select
+            mode="multiple"
+            placeholder={intl.formatMessage(messages.profileTypesPlaceHolder)}
+            options={profileTypeOptions}
+            loading={!profileTypesArray || profileTypesArray.length === 0}
+          />
+        </Form.Item>
       </Form>
     </Modal>
   );

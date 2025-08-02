@@ -41,6 +41,10 @@ const makeIdSelector = () =>
 
 const makeInitialValuesSelector = () =>
   createSelector(selectCriminalsDomain, (substate) => substate.initialValues);
+
+const makeProfileTypesSelector = () =>
+  createSelector(selectCriminalsDomain, (substate) => substate.profileTypes);
+
 export {
   makeClearFormFieldSelector,
   makeErrorSelector,
@@ -52,5 +56,6 @@ export {
   makeFormValuesSelector,
   makeFormMethodSelector,
   makeIdSelector,
-  makeInitialValuesSelector
+  makeInitialValuesSelector,
+  makeProfileTypesSelector,
 };

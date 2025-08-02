@@ -16,6 +16,8 @@ import {
   GET_CRIMINAL_BY_ID,
   SET_INITIAL_VALUES,
   DELETE_ITEM_BY_ID,
+  QUERY_PROFILE_TYPES,
+  SET_PROFILE_TYPES,
 } from './constants';
 
 export function asyncStartAction() {
@@ -127,5 +129,19 @@ export function deleteItemByIdAction(id) {
   return {
     type: DELETE_ITEM_BY_ID,
     id,
+  };
+}
+
+// Profile Types Actions
+export function queryProfileTypesAction() {
+  return {
+    type: QUERY_PROFILE_TYPES,
+  };
+}
+
+export function setProfileTypesAction(profileTypes) {
+  return {
+    type: SET_PROFILE_TYPES,
+    profileTypes,
   };
 }

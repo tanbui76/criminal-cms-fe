@@ -63,5 +63,34 @@
   "containers.Criminal.requiredEndExecuteDateField": "Vui lòng nhập ngày kết thúc thi hành án",
 
   "containers.Criminal.doneExecuteDate": "Ngày chấp hành án xong",
-  "containers.Criminal.requiredDoneExecuteDateField": "Vui lòng nhập ngày chấp hành án xong"
+  "containers.Criminal.requiredDoneExecuteDateField": "Vui lòng nhập ngày chấp hành án xong",
+
+  "containers.Criminal.nameColumn": "Họ và tên",
+  "containers.Criminal.descriptionColumn": "Mô tả",
+  "containers.Criminal.birthplaceColumn": "Quê quán",
+  "containers.Criminal.profileTypesColumn": "Loại hồ sơ",
+  "containers.Criminal.birthdateColumn": "Ngày sinh",
+  "containers.Criminal.addressColumn": "Địa chỉ",
+  "containers.Criminal.startExecuteDateColumn": "Ngày bắt đầu",
+  "containers.Criminal.endExecuteDateColumn": "Ngày kết thúc",
+  "containers.Criminal.actionColumn": "Hành động",
+  "containers.Criminal.profileTypes": "Loại hồ sơ",
+  "containers.Criminal.requiredProfileTypesField": "Vui lòng chọn loại hồ sơ",
+
+  "containers.Criminal.editCriminal": "Chỉnh sửa phạm nhân",
+  "containers.Criminal.requiredDescriptionField": "Vui lòng nhập mô tả",
+  "containers.Criminal.descriptionPlaceHolder": "Nhập mô tả chi tiết về phạm nhân",
+  "containers.Criminal.profileTypesPlaceHolder": "Chọn loại hồ sơ",
+
+  "containers.Dashboard.prisonerCount": "Số lượng phạm nhân",
+  "containers.Dashboard.releaseThisMonth": "Phạm nhân được thả tháng này",
+  "containers.Dashboard.prisonerName": "Tên phạm nhân",
+  "containers.Dashboard.releaseDate": "Ngày thả",
+  "containers.Dashboard.loadingData": "Đang tải dữ liệu...",
+  "containers.Dashboard.noData": "Không có dữ liệu",
+  "containers.Dashboard.noReleaseThisMonth": "Không có phạm nhân nào được thả trong tháng này",
+  "containers.Dashboard.countLabel": "Số lượng",
+  "containers.Dashboard.descriptionColumn": "Mô tả",
+
+  "containers.Dashboard.prisonerChart": "Thống kê phạm nhân theo loại hồ sơ"
 }

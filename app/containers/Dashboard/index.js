@@ -9,32 +9,34 @@ import { useInjectSaga } from 'utils/injectSaga';
 import saga from 'containers/Dashboard/saga';
 import reducer from 'containers/Dashboard/reducer';
 import { Card, Col, Row, Statistic } from 'antd';
-import { UserOutlined, UsergroupAddOutlined } from '@ant-design/icons';
+import { UserOutlined, UsergroupAddOutlined, TeamOutlined } from '@ant-design/icons';
 import { useInjectReducer } from 'utils/injectReducer';
 import {
-  makeDeviceChartSelector,
-  makeIsLoadingSelector,
-  makeUserStatsSelector,
-  makeDeviceTypeSelector,
+  makeSelectUserStats,
+  makeSelectIsLoading,
+  makeSelectPrisonerStats,
+  makeSelectReleaseData,
+  makeSelectTotalPrisoners,
 } from 'containers/Dashboard/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import {
   queryUserStatsAction,
-  queryDeviceAction,
-  setDeviceTypeAction,
+  queryPrisonerStatsAction,
 } from 'containers/Dashboard/actions';
-import DeviceChart from 'containers/Dashboard/charts/deviceChart';
+import PrisonerChart from 'containers/Dashboard/charts/prisonerChart';
+import ReleaseTable from 'containers/Dashboard/charts/releaseTable';
 import messages from 'containers/Dashboard/messages';
 import { useIntl } from 'react-intl';
 
 const key = 'dashboard';
 
 const stateSelector = createStructuredSelector({
-  userStats: makeUserStatsSelector(),
-  deviceType: makeDeviceTypeSelector(),
-  isLoading: makeIsLoadingSelector(),
-  deviceChart: makeDeviceChartSelector(),
+  userStats: makeSelectUserStats(),
+  isLoading: makeSelectIsLoading(),
+  prisonerStats: makeSelectPrisonerStats(),
+  releaseData: makeSelectReleaseData(),
+  totalPrisoners: makeSelectTotalPrisoners(),
 });
 
 export default function Dashboard() {
@@ -42,25 +44,20 @@ export default function Dashboard() {
   const intl = useIntl();
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
-  const { userStats, isLoading, deviceChart, deviceType } =
+  const { userStats, isLoading, prisonerStats, releaseData, totalPrisoners } =
     useSelector(stateSelector);
   const loadUserStats = () => dispatch(queryUserStatsAction());
-  const loadDeviceStats = () => dispatch(queryDeviceAction());
-  const handleDeviceChange = (e) =>
-    dispatch(setDeviceTypeAction(e.target.value));
+  const loadPrisonerStats = () => dispatch(queryPrisonerStatsAction());
 
   useEffect(() => {
     loadUserStats();
+    loadPrisonerStats();
   }, []);
-
-  useEffect(() => {
-    loadDeviceStats();
-  }, [deviceType]);
 
   return (
     <>
       <Row gutter={16}>
-        <Col span={8}>
+        <Col span={6}>
           <Card>
             <Statistic
               loading={isLoading}
@@ -73,7 +70,7 @@ export default function Dashboard() {
             />
           </Card>
         </Col>
-        <Col span={8}>
+        <Col span={6}>
           <Card>
             <Statistic
               loading={isLoading}
@@ -86,7 +83,7 @@ export default function Dashboard() {
             />
           </Card>
         </Col>
-        <Col span={8}>
+        <Col span={6}>
           <Card>
             <Statistic
               loading={isLoading}
@@ -99,6 +96,17 @@ export default function Dashboard() {
             />
           </Card>
         </Col>
+        <Col span={6}>
+          <Card>
+            <Statistic
+              loading={isLoading}
+              valueStyle={{ color: '#1890ff' }}
+              prefix={<TeamOutlined />}
+              title={intl.formatMessage(messages.totalPrisoners)}
+              value={totalPrisoners}
+            />
+          </Card>
+        </Col>
       </Row>
       <Row
         gutter={24}
@@ -106,17 +114,16 @@ export default function Dashboard() {
           marginTop: 24,
         }}
       >
-        <Col xl={24} lg={24} md={24} sm={24} xs={24}>
+        <Col xl={12} lg={24} md={24} sm={24} xs={24}>
           <Suspense fallback={null}>
-            <DeviceChart
-              data={deviceChart}
-              loading={isLoading}
-              deviceType={deviceType}
-              handleChange={handleDeviceChange}
-            />
+            <PrisonerChart data={prisonerStats} loading={isLoading} />
           </Suspense>
         </Col>
-        {/* <Col xl={12} lg={24} md={24} sm={24} xs={24}></Col> */}
+        <Col xl={12} lg={24} md={24} sm={24} xs={24}>
+          <Suspense fallback={null}>
+            <ReleaseTable data={releaseData} loading={isLoading} />
+          </Suspense>
+        </Col>
       </Row>
     </>
   );

@@ -1,11 +1,12 @@
 import React, { useCallback, useMemo } from 'react';
-import { Modal, Space, Table } from 'antd';
+import { Modal, Space, Table, Tag, Tooltip } from 'antd';
 import { createStructuredSelector } from 'reselect';
 import { makeCriminalsSelector, makeIsLoadingSelector } from './selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { setPageNumberAction, setPageSizeAction } from './action';
 import commonMessages from 'common/messages';
+import messages from './messages';
 import dayjs from 'dayjs';
 import {
   DeleteOutlined,
@@ -19,6 +20,7 @@ const stateSelector = createStructuredSelector({
   isLoading: makeIsLoadingSelector(),
   criminals: makeCriminalsSelector(),
 });
+
 const CriminalTable = ({ onEdit, onDelete }) => {
   const dispatch = useDispatch();
 
@@ -33,6 +35,7 @@ const CriminalTable = ({ onEdit, onDelete }) => {
   ),
   []
 );
+
   const paginationOptions = {
     showSizeChanger: true,
     showQuickJumper: true,
@@ -51,71 +54,122 @@ const CriminalTable = ({ onEdit, onDelete }) => {
     if (!criminals?.results) return [];
 
     return criminals.results.map((criminal) => {
-      const start = criminal.startExecuteDate
-        ? dayjs(criminal.startExecuteDate)
-        : null;
-      const end = criminal.doneExecuteDate
-        ? dayjs(criminal.doneExecuteDate)
-        : null;
-
-      const challengePeriod = start && end ? end.diff(start, 'month') : null;
-
-      const today = dayjs();
-      const remainingDay =
-        end && end.diff(today, 'day') > 0 ? end.diff(today, 'day') : 0;
-
       return {
         ...criminal,
-        challengePeriod,
-        remainingDay,
       };
     });
   }, [criminals?.results]);
 
   const columns = [
     {
-      title: 'Họ và tên',
+      title: <FormattedMessage {...messages.nameColumn} />,
       dataIndex: 'name',
       key: 'name',
-    },
-    {
-      title: 'Quê Quán',
-      dataIndex: 'birthplace',
-      key: 'birthplace',
-    },
-    {
-      title: 'Thời gian thử thách (số tháng)',
-      dataIndex: 'challengePeriod',
-      key: 'challengePeriod',
-    },
-    {
-      title: 'Số ngày còn lại',
-      dataIndex: 'remainingDay',
-      key: 'remainingDay',
-      render: (value) => (
-        <span style={{ color: value === 0 ? 'red' : 'inherit' }}>{value}</span>
+      width: 150,
+      fixed: 'left',
+      render: (name) => (
+        <span style={{ fontWeight: 'bold' }}>{name}</span>
       ),
     },
     {
-      title: 'Chấp hành án từ ngày',
+      title: <FormattedMessage {...messages.descriptionColumn} />,
+      dataIndex: 'description',
+      key: 'description',
+      width: 150,
+      render: (description) => (
+        <Tooltip title={description} placement="topLeft">
+          <div style={{ 
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap'
+          }}>
+            {description}
+          </div>
+        </Tooltip>
+      ),
+    },
+    {
+      title: <FormattedMessage {...messages.birthplaceColumn} />,
+      dataIndex: 'birthplace',
+      key: 'birthplace',
+      width: 100,
+    },
+    {
+      title: <FormattedMessage {...messages.profileTypesColumn} />,
+      dataIndex: 'profileTypeIds',
+      key: 'profileTypeIds',
+      width: 140,
+      render: (profileTypeIds) => {
+        if (!profileTypeIds || !Array.isArray(profileTypeIds)) {
+          return <span style={{ color: '#999' }}>Chưa có</span>;
+        }
+        
+        return (
+          <div>
+            {profileTypeIds.slice(0, 2).map((type) => (
+              <Tooltip key={type.id} title={type.name} placement="top">
+                <Tag color="blue" style={{ marginBottom: 4, marginRight: 4, maxWidth: 60 }}>
+                  <div style={{
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap'
+                  }}>
+                    {type.name}
+                  </div>
+                </Tag>
+              </Tooltip>
+            ))}
+            {profileTypeIds.length > 2 && (
+              <Tag color="orange">+{profileTypeIds.length - 2} loại khác</Tag>
+            )}
+          </div>
+        );
+      },
+    },
+    {
+      title: <FormattedMessage {...messages.birthdateColumn} />,
+      dataIndex: 'birthdate',
+      key: 'birthdate',
+      width: 100,
+      render: (date) => date ? dayjs(date).format('DD/MM/YYYY') : '-',
+    },
+    {
+      title: <FormattedMessage {...messages.addressColumn} />,
+      dataIndex: 'address',
+      key: 'address',
+      width: 120,
+      render: (address) => (
+        <Tooltip title={address} placement="topLeft">
+          <div style={{ 
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap'
+          }}>
+            {address}
+          </div>
+        </Tooltip>
+      ),
+    },
+    {
+      title: <FormattedMessage {...messages.startExecuteDateColumn} />,
       dataIndex: 'startExecuteDate',
       key: 'startExecuteDate',
+      width: 120,
+      render: (date) => date ? dayjs(date).format('DD/MM/YYYY') : '-',
     },
     {
-      title: 'Ngày xét giảm án',
+      title: <FormattedMessage {...messages.endExecuteDateColumn} />,
       dataIndex: 'endExecuteDate',
       key: 'endExecuteDate',
+      width: 120,
+      render: (date) => date ? dayjs(date).format('DD/MM/YYYY') : '-',
     },
     {
-      title: 'Ngày chấp hành xong',
-      dataIndex: 'doneExecuteDate',
-      key: 'doneExecuteDate',
-    },
-    {
-      title: 'Hành động',
+      title: <FormattedMessage {...messages.actionColumn} />,
       key: 'action',
+      width: 80,
       render: (_, record) => (
-        <Space size="middle">
+        <Space size="small">
           <ToolTipButtonWrapper
             title={commonMessages.editLabel}
             clickEvent={() => onEdit(record)}
@@ -154,11 +208,14 @@ const CriminalTable = ({ onEdit, onDelete }) => {
       columns={columns}
       dataSource={dataModify}
       rowKey="id"
+      scroll={{ x: 1400, y: 300 }}
     />
   );
 };
+
 CriminalTable.propTypes = {
   onEdit: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired
 };
+
 export default CriminalTable;

@@ -33,19 +33,16 @@ const useGetCriminalForm = ({
     if (!id) {
       formInstance.resetFields(); // ✅ reset when modal is closed
     }
-  });
+  }, [id, formInstance]);
 
   const WrappedForm = ({ ...props }) => (
-    <FormWrapper
-      {...props}
-      values={initialValues}
-      formInstance={formInstance}
-      layout={layout}
-      device={device}
+    <Form
+      form={formInstance}
+      layout="vertical"
       responsive={responsive}
       name={formName}
-      children
-      classname="form-ant-items"
+      className="form-ant-items"
+      {...props}
     />
   );
 
