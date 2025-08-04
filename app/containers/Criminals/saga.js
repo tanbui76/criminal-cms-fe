@@ -1,5 +1,5 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
-import { DELETE_ITEM_BY_ID, GET_CRIMINAL_BY_ID, QUERY_CRIMINALS, SUBMIT_FORM } from './constants';
+import { DELETE_ITEM_BY_ID, GET_CRIMINAL_BY_ID, QUERY_CRIMINALS, SUBMIT_FORM, QUERY_PROFILE_TYPES } from './constants';
 import { DELETE, GET, PUT } from 'utils/constants';
 import request from 'utils/request';
 import {
@@ -9,6 +9,8 @@ import {
   clearFormFieldAction,
   queryCriminalsAction,
   setInitialValuesAction,
+  setProfileTypesAction,
+  enterValidationErrorAction,
 } from './action';
 import { buildQueryString } from 'common/helpers';
 import {
@@ -40,6 +42,18 @@ export function* handleQueryCriminalsList() {
   }
 }
 
+export function* handleQueryProfileTypes() {
+  yield put(asyncStartAction());
+  const requestUrl = `/profile-types`;
+  const payload = ApiEndpoint.makeApiPayload(requestUrl, GET);
+  try {
+    const response = yield call(request, payload);
+    return yield put(setProfileTypesAction(response));
+  } catch (error) {
+    return yield put(asyncEndAction());
+  }
+}
+
 export function* handleSubmitForm() {
   const formValues = yield select(makeFormValuesSelector());
   const formMethod = yield select(makeFormMethodSelector());
@@ -52,9 +66,13 @@ export function* handleSubmitForm() {
   );
   try {
     yield call(request, payload);
+    
+    // Fetch updated list after successful create/edit
     yield put(queryCriminalsAction());
+    
+    // Clear form and close modal
     yield put(clearFormFieldAction());
-    yield put(asyncStartAction());
+    
     const message =
       formMethod === PUT
         ? commonMessage.updateSuccess
@@ -62,6 +80,33 @@ export function* handleSubmitForm() {
     return yield showFormattedAlert('success', message);
   } catch (error) {
     yield put(asyncEndAction());
+    
+    // Handle validation errors
+    if (error.response && error.response.data) {
+      const errorData = error.response.data;
+      
+      // Handle unique constraint error
+      if (errorData.unique) {
+        yield put(enterValidationErrorAction([
+          {
+            name: 'name',
+            errors: [errorData.unique]
+          }
+        ]));
+        return yield showAlert('error', errorData.unique);
+      }
+      
+      // Handle other validation errors
+      if (errorData.errors) {
+        const validationErrors = Object.keys(errorData.errors).map(field => ({
+          name: field,
+          errors: [errorData.errors[field]]
+        }));
+        yield put(enterValidationErrorAction(validationErrors));
+        return yield showAlert('error', 'Vui lòng kiểm tra lại thông tin');
+      }
+    }
+    
     return yield showAlert('error', 'INTERNAL SERVER ERROR');
   }
 }
@@ -106,6 +151,7 @@ export function* handleDeleteItemById(data) {
 
 export default function* PermissionSaga() {
   yield takeLatest(QUERY_CRIMINALS, handleQueryCriminalsList);
+  yield takeLatest(QUERY_PROFILE_TYPES, handleQueryProfileTypes);
   yield takeLatest(SUBMIT_FORM, handleSubmitForm);
   yield takeLatest(GET_CRIMINAL_BY_ID, handleGetCriminalById);
   yield takeLatest(DELETE_ITEM_BY_ID, handleDeleteItemById);

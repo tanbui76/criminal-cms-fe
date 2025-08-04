@@ -28,4 +28,48 @@ export default defineMessages({
     id: `${scope}.deviceChart`,
     defaultMessage: 'Devices',
   },
+  prisonerChart: {
+    id: `${scope}.prisonerChart`,
+    defaultMessage: 'Prisoner Statistics by Profile Type',
+  },
+  totalPrisoners: {
+    id: `${scope}.totalPrisoners`,
+    defaultMessage: 'Tổng số phạm nhân',
+  },
+  prisonerCount: {
+    id: `${scope}.prisonerCount`,
+    defaultMessage: 'Số lượng phạm nhân',
+  },
+  releaseThisMonth: {
+    id: `${scope}.releaseThisMonth`,
+    defaultMessage: 'Phạm nhân được thả tháng này',
+  },
+  prisonerName: {
+    id: `${scope}.prisonerName`,
+    defaultMessage: 'Tên phạm nhân',
+  },
+  releaseDate: {
+    id: `${scope}.releaseDate`,
+    defaultMessage: 'Ngày thả',
+  },
+  loadingData: {
+    id: `${scope}.loadingData`,
+    defaultMessage: 'Đang tải dữ liệu...',
+  },
+  noData: {
+    id: `${scope}.noData`,
+    defaultMessage: 'Không có dữ liệu',
+  },
+  noReleaseThisMonth: {
+    id: `${scope}.noReleaseThisMonth`,
+    defaultMessage: 'Không có phạm nhân nào được thả trong tháng này',
+  },
+  countLabel: {
+    id: `${scope}.countLabel`,
+    defaultMessage: 'Số lượng',
+  },
+  descriptionColumn: {
+    id: `${scope}.descriptionColumn`,
+    defaultMessage: 'Mô tả',
+  },
 });

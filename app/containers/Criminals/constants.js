@@ -18,3 +18,7 @@ export const SUBMIT_FORM = 'containers/Criminals/SUBMIT_FORM';
 export const CLEAR_FORM_FIELD = 'containers/Criminals/CLEAR_FORM_FIELD';
 export const CLEAR_FORM = 'containers/Criminals/CLEAR_FORM';
 export const ADD_VALIDATION_ERROR = 'containers/Criminals/ADD_VALIDATION_ERROR';
+
+// Profile Types
+export const QUERY_PROFILE_TYPES = 'containers/Criminals/QUERY_PROFILE_TYPES';
+export const SET_PROFILE_TYPES = 'containers/Criminals/SET_PROFILE_TYPES';

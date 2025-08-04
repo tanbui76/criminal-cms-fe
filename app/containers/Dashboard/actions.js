@@ -12,6 +12,10 @@ import {
   SET_DEVICE_TYPE,
   QUERY_DEVICE_STATS,
   SET_DEVICE_CHART,
+  QUERY_PRISONER_STATS,
+  SET_PRISONER_STATS,
+  SET_RELEASE_DATA,
+  SET_TOTAL_PRISONERS,
 } from 'containers/Dashboard/constants';
 
 export function queryUserStatsAction() {
@@ -56,5 +60,35 @@ export function setDeviceChartAction(deviceChart) {
 export function queryDeviceAction() {
   return {
     type: QUERY_DEVICE_STATS,
+  };
+}
+
+// Thêm actions cho thống kê phạm nhân
+export function queryPrisonerStatsAction() {
+  return {
+    type: QUERY_PRISONER_STATS,
+  };
+}
+
+export function setPrisonerStatsAction(prisonerStats) {
+  return {
+    type: SET_PRISONER_STATS,
+    prisonerStats,
+  };
+}
+
+// Thêm action cho release data
+export function setReleaseDataAction(releaseData) {
+  return {
+    type: SET_RELEASE_DATA,
+    releaseData,
+  };
+}
+
+// Thêm action cho tổng số phạm nhân
+export function setTotalPrisonersAction(total) {
+  return {
+    type: SET_TOTAL_PRISONERS,
+    total,
   };
 }

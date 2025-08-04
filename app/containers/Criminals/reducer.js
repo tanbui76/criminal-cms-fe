@@ -18,7 +18,8 @@ import {
   SET_FORM_VALUES,
   ADD_VALIDATION_ERROR,
   SET_ID,
-  SET_INITIAL_VALUES
+  SET_INITIAL_VALUES,
+  SET_PROFILE_TYPES,
 } from './constants';
 
 const EmptyField = {
@@ -45,6 +46,7 @@ export const initialState = {
   pageSize: 10,
   limit: 10,
   roles: [],
+  profileTypes: [],
   criminals: {
     results: [],
     pageSize: 10,
@@ -114,6 +116,9 @@ const CriminalsReducer = produce((draft, action) => {
       break;
     case SET_INITIAL_VALUES:
       draft.initialValues = action.initialValues;
+      break;
+    case SET_PROFILE_TYPES:
+      draft.profileTypes = action.profileTypes;
       break;
   }
 }, initialState);

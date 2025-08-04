@@ -1,23 +1,45 @@
+/*
+ *
+ * Dashboard selectors
+ *
+ */
+
 import { createSelector } from 'reselect';
-import { initialState } from 'containers/Dashboard/reducer';
+import { initialState } from './reducer';
 
-const selectDashboardDomain = (state) => state.dashboard || initialState;
+const selectDashboardDomain = state => state.dashboard || initialState;
 
-const makeIsLoadingSelector = () =>
-  createSelector(selectDashboardDomain, (substate) => substate.isLoading);
+const makeSelectUserStats = () =>
+  createSelector(selectDashboardDomain, substate => substate.userStats);
 
-const makeUserStatsSelector = () =>
-  createSelector(selectDashboardDomain, (substate) => substate.userStats);
+const makeSelectDeviceChart = () =>
+  createSelector(selectDashboardDomain, substate => substate.deviceChart);
 
-const makeDeviceChartSelector = () =>
-  createSelector(selectDashboardDomain, (substate) => substate.deviceChart);
+const makeSelectDeviceType = () =>
+  createSelector(selectDashboardDomain, substate => substate.deviceType);
 
-const makeDeviceTypeSelector = () =>
-  createSelector(selectDashboardDomain, (substate) => substate.deviceType);
+const makeSelectIsLoading = () =>
+  createSelector(selectDashboardDomain, substate => substate.isLoading);
+
+// Thêm selector cho thống kê phạm nhân
+const makeSelectPrisonerStats = () =>
+  createSelector(selectDashboardDomain, substate => substate.prisonerStats);
+
+// Thêm selector cho release data
+const makeSelectReleaseData = () =>
+  createSelector(selectDashboardDomain, substate => substate.releaseData);
+
+// Thêm selector cho tổng số phạm nhân
+const makeSelectTotalPrisoners = () =>
+  createSelector(selectDashboardDomain, substate => substate.totalPrisoners);
 
 export {
-  makeIsLoadingSelector,
-  makeUserStatsSelector,
-  makeDeviceChartSelector,
-  makeDeviceTypeSelector,
+  selectDashboardDomain,
+  makeSelectUserStats,
+  makeSelectDeviceChart,
+  makeSelectDeviceType,
+  makeSelectIsLoading,
+  makeSelectPrisonerStats,
+  makeSelectReleaseData,
+  makeSelectTotalPrisoners,
 };

@@ -300,5 +300,58 @@
   "containers.Criminal.table.birthDate": "Birth date",
   "containers.Criminal.table.address": "Address",
   "containers.Criminal.table.tags": "Tags",
-  "containers.Criminal.table.action": "Action"
+  "containers.Criminal.table.action": "Action",
+
+  "containers.Criminal.fullName": "Full Name",
+  "containers.Criminal.fullNamePlaceHolder": "Input Full Name",
+  "containers.Criminal.requiredFullNameField": "Please Input Full Name",
+  
+  "containers.Criminal.birthPlace": "Birth Place",
+  "containers.Criminal.birthPlaceHolder": "Input Birth Place",
+  "containers.Criminal.requiredBirthPlaceField": "Please Input Birth Place",
+
+  "containers.Criminal.birthDate": "Birth Date",
+  "containers.Criminal.requiredBirthDateField": "Please Input Birth Date",
+
+  "containers.Criminal.address": "Address",
+  "containers.Criminal.addressHolder": "Input Address",
+  "containers.Criminal.requiredAddressField": "Please Input Address",
+
+  "containers.Criminal.startExecuteDate": "Start Execute Date",
+  "containers.Criminal.requiredStartExecuteDateField": "Please Input Start Execute Date",
+
+  "containers.Criminal.endExecuteDate": "End Execute Date",
+  "containers.Criminal.requiredEndExecuteDateField": "Please Input End Execute Date",
+
+  "containers.Criminal.doneExecuteDate": "Done Execute Date",
+  "containers.Criminal.requiredDoneExecuteDateField": "Please Input Done Execute Date",
+
+  "containers.Criminal.nameColumn": "Full Name",
+  "containers.Criminal.descriptionColumn": "Description",
+  "containers.Criminal.birthplaceColumn": "Birth Place",
+  "containers.Criminal.profileTypesColumn": "Profile Types",
+  "containers.Criminal.birthdateColumn": "Birth Date",
+  "containers.Criminal.addressColumn": "Address",
+  "containers.Criminal.startExecuteDateColumn": "Start Date",
+  "containers.Criminal.endExecuteDateColumn": "End Date",
+  "containers.Criminal.actionColumn": "Actions",
+  "containers.Criminal.profileTypes": "Profile Types",
+  "containers.Criminal.requiredProfileTypesField": "Please select profile types",
+
+  "containers.Criminal.editCriminal": "Edit Criminal",
+  "containers.Criminal.requiredDescriptionField": "Please input description",
+  "containers.Criminal.descriptionPlaceHolder": "Input detailed description about the criminal",
+  "containers.Criminal.profileTypesPlaceHolder": "Select profile types",
+
+  "containers.Dashboard.prisonerCount": "Prisoner Count",
+  "containers.Dashboard.releaseThisMonth": "Prisoners Released This Month",
+  "containers.Dashboard.prisonerName": "Prisoner Name",
+  "containers.Dashboard.releaseDate": "Release Date",
+  "containers.Dashboard.loadingData": "Loading data...",
+  "containers.Dashboard.noData": "No data",
+  "containers.Dashboard.noReleaseThisMonth": "No prisoners released this month",
+  "containers.Dashboard.countLabel": "Count",
+  "containers.Dashboard.descriptionColumn": "Description",
+
+  "containers.Dashboard.prisonerChart": "Prisoner Statistics by Profile Type"
 }
