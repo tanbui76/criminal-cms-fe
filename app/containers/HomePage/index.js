@@ -48,8 +48,8 @@ export default function HomePage() {
         </div>
         <Navbar />
         <Banner />
-        <TruthyHelps />
-        <Contributors contributors={contributors} loading={isLoading} />
+        {/* <TruthyHelps /> */}
+        {/* <Contributors contributors={contributors} loading={isLoading} /> */}
         {/* <Footer /> */}
         {/* <NavLink to="/login" className="btn-primary">
           Login

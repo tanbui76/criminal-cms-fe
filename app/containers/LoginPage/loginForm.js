@@ -118,9 +118,9 @@ const LoginForm = () => {
         form={form}
         label={messages.submit}
       />
-      <Link className="link" to="/register">
+      {/* <Link className="link" to="/register">
         <FormattedMessage {...messages.register} />
-      </Link>
+      </Link> */}
     </FormWrapper>
   );
 };

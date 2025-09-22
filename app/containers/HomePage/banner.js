@@ -12,14 +12,14 @@ const Banner = () => {
         <Row gutter={[16, 16]} className="align-items-center">
           <Col sm={10}>
             <div className="banner-content">
-              <h2>{intl.formatMessage(messages.header)}</h2>
+              <h2>Criminal Manager</h2>
               <p>{intl.formatMessage(messages.description)}</p>
-              <Button className="round" type="primary">
+              {/* <Button className="round" type="primary">
                 <a href="https://github.com/gobeam/truthy" target="_blank">
                   {' '}
                   {intl.formatMessage(messages.startedButton)}
                 </a>
-              </Button>
+              </Button> */}
             </div>
           </Col>
           <Col sm={14}>
