@@ -18,6 +18,7 @@ import PublicRoute from 'containers/PublicRoute';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import { useRoutes } from 'react-router-dom';
 import Criminals from 'containers/Criminals';
+import ViewCriminals from 'containers/Criminals/ViewCriminals';
 
 const routes = [
   {
@@ -172,6 +173,19 @@ const routes = [
             defaultPermission
           >
             <Criminals />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: 'view-criminal/:id',
+        element: (
+          <PrivateRoute
+            path="/criminals"
+            method="get"
+            resource="criminal"
+            defaultPermission
+          >
+            <ViewCriminals />
           </PrivateRoute>
         ),
       },

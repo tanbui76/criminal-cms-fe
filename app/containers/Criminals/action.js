@@ -18,6 +18,7 @@ import {
   DELETE_ITEM_BY_ID,
   QUERY_PROFILE_TYPES,
   SET_PROFILE_TYPES,
+  POST_SENTENCE_REDUCTION,
 } from './constants';
 
 export function asyncStartAction() {
@@ -143,5 +144,12 @@ export function setProfileTypesAction(profileTypes) {
   return {
     type: SET_PROFILE_TYPES,
     profileTypes,
+  };
+}
+
+export function postSentenceReductionAction(payload) {
+  return {
+    type: POST_SENTENCE_REDUCTION,
+    payload,
   };
 }

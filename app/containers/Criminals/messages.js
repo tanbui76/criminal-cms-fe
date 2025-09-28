@@ -143,4 +143,8 @@ export default defineMessages({
     id: `${scope}.profileTypesPlaceHolder`,
     defaultMessage: 'Select profile types',
   },
+  sentenceReductionSuccess: {
+    id: `${scope}.sentenceReductionSuccess`,
+    defaultMessage: 'Sentence reduction submitted successfully',
+  },
 });
