@@ -1,6 +1,7 @@
 {
   "common.messages.cancel": "Hủy bỏ",
   "common.messages.editLabel": "Chỉnh sửa",
+  "common.messages.viewLabel": "Xem chi tiết",
   "common.messages.okLabel": "Ok",
   "common.messages.removeLabel": "Xóa",
   "common.messages.pagination": "Hiển thị từ {start} đến {end} trong tổng số {total}",
@@ -25,10 +26,10 @@
   "containers.PermissionDeniedPage.header": "Quyền bị từ chối",
   "containers.PermissionDeniedPage.message": "Ồ! Bạn không có quyền truy cập trang này.",
 
-  "containers.Dashboard.totalUser": "Total User",
-  "containers.Dashboard.activeUser": "Active User",
+  "containers.Dashboard.totalUser": "Tổng số người dùng",
+  "containers.Dashboard.activeUser": "Số người dùng đang hoạt động",
   "containers.Dashboard.deviceChart": "Devices",
-  "containers.Dashboard.inActiveUser": "In-active User",
+  "containers.Dashboard.inActiveUser": "Số người dùng đã dừng",
   "containers.Criminal.helmetTitle": "Quản lý đối tượng thi hành án hình sự tại cộng đồng",
   "containers.Criminal.dashboardTitle": "Bảng điều khiển",
   "containers.Criminal.pageHeader": "Criminal",
@@ -44,7 +45,7 @@
   "containers.Criminal.fullName": "Họ và tên",
   "containers.Criminal.fullNamePlaceHolder": "Nhập họ và tên",
   "containers.Criminal.requiredFullNameField": "Vui lòng nhập họ và tên",
-  
+
   "containers.Criminal.birthPlace": "Nơi sinh",
   "containers.Criminal.birthPlaceHolder": "Nhập nơi sinh",
   "containers.Criminal.requiredBirthPlaceField": "Vui lòng nhập nơi sinh",
@@ -81,9 +82,10 @@
   "containers.Criminal.requiredDescriptionField": "Vui lòng nhập mô tả",
   "containers.Criminal.descriptionPlaceHolder": "Nhập mô tả chi tiết về đối tượng thi hành án ",
   "containers.Criminal.profileTypesPlaceHolder": "Chọn loại hồ sơ",
+  "containers.Criminal.sentenceReductionSuccess": "Thành công giảm thời gian chấp hành án",
 
   "containers.Dashboard.prisonerCount": "Số lượng đối tượng",
-  "containers.Dashboard.releaseThisMonth": "Đối tượng thi hành án được thả tháng này",
+  "containers.Dashboard.releaseThisMonth": "Đối tượng thi hành án sắp hoàn thành",
   "containers.Dashboard.prisonerName": "Họ và tên",
   "containers.Dashboard.releaseDate": "Ngày chấp hành xong hình phạt",
   "containers.Dashboard.loadingData": "Đang tải dữ liệu...",

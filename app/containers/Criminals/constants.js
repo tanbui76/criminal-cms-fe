@@ -22,3 +22,5 @@ export const ADD_VALIDATION_ERROR = 'containers/Criminals/ADD_VALIDATION_ERROR';
 // Profile Types
 export const QUERY_PROFILE_TYPES = 'containers/Criminals/QUERY_PROFILE_TYPES';
 export const SET_PROFILE_TYPES = 'containers/Criminals/SET_PROFILE_TYPES';
+
+export const POST_SENTENCE_REDUCTION = 'app/Criminals/POST_SENTENCE_REDUCTION';

@@ -34,7 +34,7 @@ export default defineMessages({
   },
   totalPrisoners: {
     id: `${scope}.totalPrisoners`,
-    defaultMessage: 'Tổng số phạm nhân',
+    defaultMessage: 'Tổng số người đang thi hành án',
   },
   prisonerCount: {
     id: `${scope}.prisonerCount`,

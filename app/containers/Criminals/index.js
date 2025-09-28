@@ -5,12 +5,14 @@ import { useInjectReducer } from 'utils/injectReducer';
 import { Breadcrumb, Button } from 'antd';
 import { FormattedMessage } from 'react-intl';
 import { Helmet } from 'react-helmet';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { PlusOutlined } from '@ant-design/icons';
 import SearchInput from 'components/SearchInput';
 import messages from 'containers/Criminals/messages';
-import CriminalTable from './criminalTable';
 import { POST, PUT } from 'utils/constants';
+import { useDispatch, useSelector } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import CriminalTable from './criminalTable';
 import {
   clearFormAction,
   clearFormFieldAction,
@@ -23,9 +25,7 @@ import {
 } from './action';
 import CreateCriminalModal from './createCriminalModal';
 import reducer from './reducer';
-import { useDispatch, useSelector } from 'react-redux';
 import saga from './saga';
-import { createStructuredSelector } from 'reselect';
 import {
   makeIdSelector,
   makeIsLoadingSelector,
@@ -44,6 +44,7 @@ const stateSelector = createStructuredSelector({
 
 function Criminals() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   useInjectSaga({ key, saga });
   useInjectReducer({ key, reducer });
 
@@ -61,6 +62,10 @@ function Criminals() {
   const onCreate = () => {
     onchangeFormMethod(POST);
     setCreateCriminal(true);
+  };
+
+  const onView = (criminalId) => {
+    navigate(`/view-criminal/${criminalId}`);
   };
 
   useEffect(() => {
@@ -122,7 +127,7 @@ function Criminals() {
       </div>
 
       <div className="truthy-table ">
-        <CriminalTable onEdit={onEdit} onDelete={onDelete} />
+        <CriminalTable onEdit={onEdit} onDelete={onDelete} onView={onView} />
       </div>
       <CreateCriminalModal
         visible={createCriminal}
