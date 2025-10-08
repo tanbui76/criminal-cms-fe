@@ -16,6 +16,7 @@ import PropTypes from 'prop-types';
 import messages from './messages';
 import { setPageNumberAction, setPageSizeAction } from './action';
 import { makeCriminalsSelector, makeIsLoadingSelector } from './selectors';
+import { render } from 'less';
 
 const stateSelector = createStructuredSelector({
   isLoading: makeIsLoadingSelector(),
@@ -61,7 +62,11 @@ function CriminalTable({ onEdit, onDelete, onView }) {
 
   const columns = [
     {
-      title: <FormattedMessage {...messages.nameColumn} />,
+      title: (
+        <strong>
+          <FormattedMessage {...messages.nameColumn} />
+        </strong>
+      ),
       dataIndex: 'name',
       key: 'name',
       width: 150,
@@ -79,12 +84,68 @@ function CriminalTable({ onEdit, onDelete, onView }) {
       },
     },
     {
-      title: <FormattedMessage {...messages.descriptionColumn} />,
-      dataIndex: 'description',
-      key: 'description',
+      title: (
+        <strong>
+          <FormattedMessage {...messages.genderColumn} />
+        </strong>
+      ),
+      dataIndex: 'gender',
+      key: 'gender',
+      width: 80,
+      render: (gender) => {
+        let printGender = '';
+        if (gender) {
+          printGender = 'Nam';
+        } else {
+          printGender = 'Nữ';
+        }
+        return <span>{printGender}</span>;
+      },
+    },
+    {
+      title: (
+        <strong>
+          <FormattedMessage {...messages.birthdateColumn} />
+        </strong>
+      ),
+      dataIndex: 'birthdate',
+      key: 'birthdate',
+      width: 80,
+      render: (date) => (date ? dayjs(date).format('DD/MM/YYYY') : '-'),
+    },
+    {
+      title: (
+        <strong>
+          <FormattedMessage {...messages.nationColumn} />
+        </strong>
+      ),
+
+      dataIndex: 'ethnicity',
+      key: 'ethnicity',
+      width: 80,
+    },
+    {
+      title: (
+        <strong>
+          <FormattedMessage {...messages.birthplaceColumn} />
+        </strong>
+      ),
+      dataIndex: 'birthplace',
+      key: 'birthplace',
       width: 150,
-      render: (description) => (
-        <Tooltip title={description} placement="topLeft">
+    },
+
+    {
+      title: (
+        <strong>
+          <FormattedMessage {...messages.addressColumn} />
+        </strong>
+      ),
+      dataIndex: 'address',
+      key: 'address',
+      width: 160,
+      render: (address) => (
+        <Tooltip title={address} placement="topLeft">
           <div
             style={{
               overflow: 'hidden',
@@ -92,22 +153,78 @@ function CriminalTable({ onEdit, onDelete, onView }) {
               whiteSpace: 'nowrap',
             }}
           >
+            {address}
+          </div>
+        </Tooltip>
+      ),
+    },
+    {
+      title: (
+        <strong>
+          <FormattedMessage {...messages.descriptionColumn} />
+        </strong>
+      ),
+      dataIndex: 'description',
+      key: 'description',
+      width: 300,
+      render: (description) => (
+        <Tooltip title={description} placement="topLeft">
+          <div
+            style={
+              {
+                // overflow: 'hidden',
+                // textOverflow: 'ellipsis',
+                // whiteSpace: 'nowrap',
+              }
+            }
+          >
             {description}
           </div>
         </Tooltip>
       ),
     },
     {
-      title: <FormattedMessage {...messages.birthplaceColumn} />,
-      dataIndex: 'birthplace',
-      key: 'birthplace',
-      width: 80,
+      title: (
+        <strong>
+          <FormattedMessage {...messages.challengeTime} />
+        </strong>
+      ),
+      dataIndex: 'challengeTime',
+      key: 'challengeTime',
+      width: 65,
     },
+
     {
-      title: <FormattedMessage {...messages.profileTypesColumn} />,
+      title: (
+        <strong>
+          <FormattedMessage {...messages.caseNo} />
+        </strong>
+      ),
+      dataIndex: 'caseNo',
+      key: 'caseNo',
+      width: 200,
+    },
+
+    {
+      title: (
+        <strong>
+          <FormattedMessage {...messages.judgeNo} />
+        </strong>
+      ),
+      dataIndex: 'judgeNo',
+      key: 'judgeNo',
+      width: 200,
+    },
+
+    {
+      title: (
+        <strong>
+          <FormattedMessage {...messages.profileTypesColumn} />
+        </strong>
+      ),
       dataIndex: 'profileTypeIds',
       key: 'profileTypeIds',
-      width: 180,
+      width: 80,
       render: (profileTypeIds) => {
         if (!profileTypeIds || !Array.isArray(profileTypeIds)) {
           return <span style={{ color: '#999' }}>Chưa có</span>;
@@ -140,48 +257,35 @@ function CriminalTable({ onEdit, onDelete, onView }) {
         );
       },
     },
+
     {
-      title: <FormattedMessage {...messages.birthdateColumn} />,
-      dataIndex: 'birthdate',
-      key: 'birthdate',
-      width: 80,
-      render: (date) => (date ? dayjs(date).format('DD/MM/YYYY') : '-'),
-    },
-    {
-      title: <FormattedMessage {...messages.addressColumn} />,
-      dataIndex: 'address',
-      key: 'address',
-      width: 160,
-      render: (address) => (
-        <Tooltip title={address} placement="topLeft">
-          <div
-            style={{
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              whiteSpace: 'nowrap',
-            }}
-          >
-            {address}
-          </div>
-        </Tooltip>
+      title: (
+        <strong>
+          <FormattedMessage {...messages.startExecuteDateColumn} />
+        </strong>
       ),
-    },
-    {
-      title: <FormattedMessage {...messages.startExecuteDateColumn} />,
       dataIndex: 'startExecuteDate',
       key: 'startExecuteDate',
       width: 80,
       render: (date) => (date ? dayjs(date).format('DD/MM/YYYY') : '-'),
     },
     {
-      title: <FormattedMessage {...messages.endExecuteDateColumn} />,
+      title: (
+        <strong>
+          <FormattedMessage {...messages.endExecuteDateColumn} />
+        </strong>
+      ),
       dataIndex: 'endExecuteDate',
       key: 'endExecuteDate',
       width: 80,
       render: (date) => (date ? dayjs(date).format('DD/MM/YYYY') : '-'),
     },
     {
-      title: <FormattedMessage {...messages.actionColumn} />,
+      title: (
+        <strong>
+          <FormattedMessage {...messages.actionColumn} />
+        </strong>
+      ),
       key: 'action',
       width: 120,
       render: (_, record) => (
@@ -230,7 +334,7 @@ function CriminalTable({ onEdit, onDelete, onView }) {
       columns={columns}
       dataSource={dataModify}
       rowKey="id"
-      scroll={{ x: 1400, y: 300 }}
+      scroll={{ x: 3000, y: 300 }}
     />
   );
 }

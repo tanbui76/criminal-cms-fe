@@ -26,6 +26,8 @@ import {
   ClockCircleOutlined,
   CheckCircleOutlined,
   EditOutlined,
+  FieldTimeOutlined,
+  GlobalOutlined,
 } from '@ant-design/icons';
 import { FormattedMessage } from 'react-intl';
 import { NavLink, useParams } from 'react-router-dom';
@@ -252,12 +254,56 @@ function ViewCriminals() {
                 <Descriptions.Item
                   label={
                     <Space>
-                      <EnvironmentOutlined style={{ color: '#1890ff' }} />
+                      <GlobalOutlined style={{ color: '#1890ff' }} />
                       Quê quán
                     </Space>
                   }
                 >
                   {criminal.birthplace || 'Không xác định'}
+                </Descriptions.Item>
+
+                <Descriptions.Item
+                  label={
+                    <Space>
+                      <EnvironmentOutlined style={{ color: '#1890ff' }} />
+                      Dân tộc
+                    </Space>
+                  }
+                >
+                  {criminal.ethnicity || 'Không xác định'}
+                </Descriptions.Item>
+
+                <Descriptions.Item
+                  label={
+                    <Space>
+                      <FieldTimeOutlined style={{ color: '#e37114ff' }} />
+                      Án phạt
+                    </Space>
+                  }
+                >
+                  {criminal.challengeTime || 'Không xác định'}
+                </Descriptions.Item>
+
+                <Descriptions.Item
+                  label={
+                    <Space>
+                      <FileTextOutlined style={{ color: '#861d6aff' }} />
+                      Bản án
+                    </Space>
+                  }
+                >
+                  {criminal.caseNo || 'Không xác định'}
+                </Descriptions.Item>
+
+                <Descriptions.Item
+                  label={
+                    <Space>
+                      <FileTextOutlined style={{ color: '#0ca15eff' }} />
+                      Quyết định thi hành án
+                    </Space>
+                  }
+                >
+                  {criminal.judgeNo || 'Không xác định'}
                 </Descriptions.Item>
 
                 <Descriptions.Item

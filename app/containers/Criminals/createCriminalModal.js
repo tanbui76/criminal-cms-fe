@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Modal, Form, Input, DatePicker, Select, message } from 'antd';
+import { Modal, Form, Input, DatePicker, Select, message, Radio } from 'antd';
 import { useIntl } from 'react-intl';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
@@ -102,11 +102,14 @@ const CreateCriminalModal = ({ onCancel, visible }) => {
 
       const formattedValues = {
         ...rawValues,
+        gender: Boolean(parseInt(rawValues.gender)),
         birthdate: rawValues.birthdate?.format('YYYY-MM-DD'),
         startExecuteDate: rawValues.startExecuteDate?.format('YYYY-MM-DD'),
         endExecuteDate: rawValues.endExecuteDate?.format('YYYY-MM-DD'),
         doneExecuteDate: rawValues.doneExecuteDate?.format('YYYY-MM-DD'),
       };
+      console.log('Form validation error:', formattedValues);
+
       dispatch(setFormValues(formattedValues));
       dispatch(submitFormAction());
     } catch (error) {
@@ -172,7 +175,7 @@ const CreateCriminalModal = ({ onCancel, visible }) => {
       style={{ top: '5vh' }}
       centered
     >
-      <Form form={form} layout="vertical">
+      <Form form={form} layout="vertical" initialValues={{ gender: 1 }}>
         <Form.Item
           label={intl.formatMessage(messages.fullName)}
           name="name"
@@ -185,6 +188,43 @@ const CreateCriminalModal = ({ onCancel, visible }) => {
         >
           <Input
             placeholder={intl.formatMessage(messages.fullNamePlaceHolder)}
+            style={{ padding: '0 12px' }}
+          />
+        </Form.Item>
+
+        <Form.Item
+          label={intl.formatMessage(messages.genderColumn)}
+          name="gender"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          {/* <Input
+            placeholder={intl.formatMessage(messages.challengeTimePlaceHolder)}
+            style={{ padding: '0 12px' }}
+          /> */}
+          <Radio.Group
+            name="gender"
+            options={[
+              { value: 1, label: 'Nam' },
+              { value: 0, label: 'Nữ' },
+            ]}
+          />
+        </Form.Item>
+
+        <Form.Item
+          label={intl.formatMessage(messages.nationColumn)}
+          name="ethnicity"
+          rules={[
+            {
+              required: false,
+            },
+          ]}
+        >
+          <Input
+            placeholder={intl.formatMessage(messages.nationPlaceHolder)}
             style={{ padding: '0 12px' }}
           />
         </Form.Item>
@@ -205,6 +245,51 @@ const CreateCriminalModal = ({ onCancel, visible }) => {
             showCount
             maxLength={500}
             className="ant-input-text-area"
+          />
+        </Form.Item>
+
+        <Form.Item
+          label={intl.formatMessage(messages.challengeTimeColumn)}
+          name="challengeTime"
+          rules={[
+            {
+              required: false,
+            },
+          ]}
+        >
+          <Input
+            placeholder={intl.formatMessage(messages.challengeTimePlaceHolder)}
+            style={{ padding: '0 12px' }}
+          />
+        </Form.Item>
+
+        <Form.Item
+          label={intl.formatMessage(messages.caseNoColumn)}
+          name="caseNo"
+          rules={[
+            {
+              required: false,
+            },
+          ]}
+        >
+          <Input
+            placeholder={intl.formatMessage(messages.caseNoPlaceHolder)}
+            style={{ padding: '0 12px' }}
+          />
+        </Form.Item>
+
+        <Form.Item
+          label={intl.formatMessage(messages.judgeNoColumn)}
+          name="judgeNo"
+          rules={[
+            {
+              required: false,
+            },
+          ]}
+        >
+          <Input
+            placeholder={intl.formatMessage(messages.judgeNoPlaceHolder)}
+            style={{ padding: '0 12px' }}
           />
         </Form.Item>
 

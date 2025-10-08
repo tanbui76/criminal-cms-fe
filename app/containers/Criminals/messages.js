@@ -147,4 +147,60 @@ export default defineMessages({
     id: `${scope}.sentenceReductionSuccess`,
     defaultMessage: 'Sentence reduction submitted successfully',
   },
+  challengeTime: {
+    id: `${scope}.challengeTime`,
+    defaultMessage: 'Thời gian thử thách ',
+  },
+  judgeNo: {
+    id: `${scope}.judgeNo`,
+    defaultMessage: 'Quyết định thi hành án số ',
+  },
+  caseNo: {
+    id: `${scope}.caseNo`,
+    defaultMessage: 'Bản án số ',
+  },
+  challengeTimePlaceHolder: {
+    id: `${scope}.challengeTimePlaceHolder`,
+    defaultMessage: 'Nhập Án Phạt ',
+  },
+  caseNoPlaceHolder: {
+    id: `${scope}.caseNoPlaceHolder`,
+    defaultMessage: 'Nhập Bản án số ',
+  },
+  judgeNoPlaceHolder: {
+    id: `${scope}.judgeNoPlaceHolder`,
+    defaultMessage: 'Nhập quyết định thi hành án số ',
+  },
+  challengeTimeColumn: {
+    id: `${scope}.challengeTimeColumn`,
+    defaultMessage: 'Thời gian thử thách ',
+  },
+  caseNoColumn: {
+    id: `${scope}.caseNoColumn`,
+    defaultMessage: 'Bảng án số',
+  },
+  judgeNoColumn: {
+    id: `${scope}.judgeNoColumn`,
+    defaultMessage: 'Quyết định thi hành án số ',
+  },
+  gender: {
+    id: `${scope}.gender`,
+    defaultMessage: 'Giới tính',
+  },
+  genderColumn: {
+    id: `${scope}.genderColumn`,
+    defaultMessage: 'Giới tính',
+  },
+  nation: {
+    id: `${scope}.nation`,
+    defaultMessage: 'Dân tộc',
+  },
+  nationColumn: {
+    id: `${scope}.nationColumn`,
+    defaultMessage: 'Dân tộc',
+  },
+  nationPlaceHolder: {
+    id: `${scope}.nationPlaceHolder`,
+    defaultMessage: 'Nhập Dân tộc',
+  },
 });

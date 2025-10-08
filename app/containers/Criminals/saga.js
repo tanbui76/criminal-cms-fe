@@ -65,6 +65,8 @@ export function* handleQueryProfileTypes() {
 export function* handleSubmitForm() {
   const formValues = yield select(makeFormValuesSelector());
   const formMethod = yield select(makeFormMethodSelector());
+  console.log('formMethod: ', formMethod);
+  console.log('formValues: ', formValues);
   const id = yield select(makeIdSelector());
   const requestUrl = `/criminals${formMethod === PUT ? `/${id}` : ''}`;
   const payload = ApiEndpoint.makeApiPayload(
@@ -87,6 +89,7 @@ export function* handleSubmitForm() {
         : commonMessage.addSuccess;
     return yield showFormattedAlert('success', message);
   } catch (error) {
+    console.log('errorobj:', error);
     yield put(asyncEndAction());
 
     // Handle validation errors

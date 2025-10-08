@@ -47,14 +47,14 @@
   "containers.Criminal.requiredFullNameField": "Vui lòng nhập họ và tên",
 
   "containers.Criminal.birthPlace": "Nơi sinh",
-  "containers.Criminal.birthPlaceHolder": "Nhập nơi sinh",
+  "containers.Criminal.birthPlaceHolder": "Nhập hộ khẩu thường trú",
   "containers.Criminal.requiredBirthPlaceField": "Vui lòng nhập nơi sinh",
 
   "containers.Criminal.birthDate": "Ngày tháng năm sinh",
   "containers.Criminal.requiredBirthDateField": "Vui lòng nhập ngày tháng năm sinh",
 
   "containers.Criminal.address": "Hộ khẩu thường trú",
-  "containers.Criminal.addressHolder": "Nhập hộ khẩu thường trú",
+  "containers.Criminal.addressHolder": "Nhập nơi ở hiện nay",
   "containers.Criminal.requiredAddressField": "Vui lòng nhập hộ khẩu thường trú",
 
   "containers.Criminal.startExecuteDate": "Ngày bắt đầu chấp hành án",
@@ -67,20 +67,34 @@
   "containers.Criminal.requiredDoneExecuteDateField": "Vui lòng nhập ngày chấp hành án xong",
 
   "containers.Criminal.nameColumn": "Họ và tên",
+  "containers.Criminal.genderColumn": "Giới Tính",
   "containers.Criminal.descriptionColumn": "Hành vi phạm tội",
-  "containers.Criminal.birthplaceColumn": "Quê quán",
+  "containers.Criminal.challengeTime": "Án phạt",
+  "containers.Criminal.caseNo": "Bản án",
+  "containers.Criminal.judgeNo": "Quyết định thi hành án ",
+  "containers.Criminal.challengeTimeColumn": "Án phạt",
+  "containers.Criminal.caseNoColumn": "Bản án",
+  "containers.Criminal.judgeNoColumn": "Quyết định thi hành án",
+  "containers.Criminal.birthplaceColumn": "Hộ khẩu thường trú",
   "containers.Criminal.profileTypesColumn": "Loại đối tượng",
   "containers.Criminal.birthdateColumn": "Ngày sinh",
-  "containers.Criminal.addressColumn": "Nơi đăng kí thường trú/tạm trú",
+  "containers.Criminal.nationColumn": "Dân tộc",
+  "containers.Criminal.addressColumn": "Nơi ở hiện nay ",
   "containers.Criminal.startExecuteDateColumn": "Ngày bắt đầu",
   "containers.Criminal.endExecuteDateColumn": "Ngày kết thúc",
   "containers.Criminal.actionColumn": "Hành động",
   "containers.Criminal.profileTypes": "Loại đối tượng",
   "containers.Criminal.requiredProfileTypesField": "Vui lòng chọn loại hồ sơ",
 
+
   "containers.Criminal.editCriminal": "Chỉnh sửa đối tượng",
   "containers.Criminal.requiredDescriptionField": "Vui lòng nhập mô tả",
-  "containers.Criminal.descriptionPlaceHolder": "Nhập mô tả chi tiết về đối tượng thi hành án ",
+  "containers.Criminal.descriptionPlaceHolder": "Nhập hành vi phạm tội  ",
+  "containers.Criminal.PlaceHolder": "Chọn Giới tính ",
+  "containers.Criminal.nationPlaceHolder": "Nhập Dân tộc",
+  "containers.Criminal.changllengeTimePlaceHolder": "Nhập Án phạt",
+  "containers.Criminal.caseNoPlaceHolder": "Nhập bản án",
+  "containers.Criminal.judgeNoPlaceHolder": "Nhập quyết định thi hành án ",
   "containers.Criminal.profileTypesPlaceHolder": "Chọn loại hồ sơ",
   "containers.Criminal.sentenceReductionSuccess": "Thành công giảm thời gian chấp hành án",
 
@@ -92,7 +106,7 @@
   "containers.Dashboard.noData": "Không có dữ liệu",
   "containers.Dashboard.noReleaseThisMonth": "Không có đối tượng thi hành án nào được thả trong tháng này",
   "containers.Dashboard.countLabel": "Số lượng",
-  "containers.Dashboard.descriptionColumn": "Hành vi phạm tội",
+  "containers.Dashboard.descriptionColumn": "Hành vi phạm tội và án phạt",
 
   "containers.Dashboard.prisonerChart": "Thống kê đối tượng theo loại hồ sơ"
 }
