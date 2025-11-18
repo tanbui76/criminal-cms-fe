@@ -12,7 +12,7 @@ const viTranslationMessages = require('./i18n/vi.json');
 const enTranslationMessages = require('./i18n/en.json');
 const neTranslationMessages = require('./i18n/ne.json');
 
-const DEFAULT_LOCALE = 'en';
+const DEFAULT_LOCALE = 'vi';
 
 const formatTranslationMessages = (locale, messages) => {
   const defaultFormattedMessages =

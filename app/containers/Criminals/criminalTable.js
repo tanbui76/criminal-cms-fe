@@ -17,6 +17,7 @@ import messages from './messages';
 import { setPageNumberAction, setPageSizeAction } from './action';
 import { makeCriminalsSelector, makeIsLoadingSelector } from './selectors';
 import { render } from 'less';
+import './css/style.less';
 
 const stateSelector = createStructuredSelector({
   isLoading: makeIsLoadingSelector(),
@@ -71,12 +72,13 @@ function CriminalTable({ onEdit, onDelete, onView }) {
       key: 'name',
       width: 150,
       fixed: 'left',
+      className: 'fixed-background-column',
       render: (name, record) => {
         let color = 'inherit';
         if (record.executionStatus === 'expired') {
-          color = 'red';
-        } else if (record.executionStatus === 'expiring_soon') {
           color = 'gold';
+        } else if (record.executionStatus === 'expiring_soon') {
+          color = 'red';
         } else if (record.executionStatus === 'active') {
           color = 'green';
         }
@@ -111,7 +113,6 @@ function CriminalTable({ onEdit, onDelete, onView }) {
       dataIndex: 'birthdate',
       key: 'birthdate',
       width: 80,
-      render: (date) => (date ? dayjs(date).format('DD/MM/YYYY') : '-'),
     },
     {
       title: (
@@ -280,6 +281,14 @@ function CriminalTable({ onEdit, onDelete, onView }) {
       width: 80,
       render: (date) => (date ? dayjs(date).format('DD/MM/YYYY') : '-'),
     },
+
+    {
+      title: <strong>Lý do kết thúc</strong>,
+      dataIndex: 'endResult',
+      key: 'endResult',
+      width: 200,
+    },
+
     {
       title: (
         <strong>

@@ -89,7 +89,6 @@ export function* handleSubmitForm() {
         : commonMessage.addSuccess;
     return yield showFormattedAlert('success', message);
   } catch (error) {
-    console.log('errorobj:', error);
     yield put(asyncEndAction());
 
     // Handle validation errors
@@ -135,9 +134,12 @@ export function* handleGetCriminalById() {
     yield put(
       setInitialValuesAction({
         ...response,
-        birthdate: response.birthdate
-          ? moment(response.birthdate, 'YYYY/MM/DD')
-          : undefined,
+        gender:
+          response.gender === true
+            ? 1
+            : response.gender === false
+            ? 0
+            : undefined,
         startExecuteDate: response.startExecuteDate
           ? moment(response.startExecuteDate, 'YYYY/MM/DD')
           : undefined,

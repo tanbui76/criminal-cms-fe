@@ -69,6 +69,27 @@ const useGetCriminalForm = ({
     return responsive ? <Col {...wrapperCol}>{nameInput}</Col> : nameInput;
   };
 
+  const GenderInput = () => {
+    const genderInput = (
+      <FormInputWrapper
+        label={messages.gender}
+        rules={[
+          {
+            required: true,
+            message: <FormattedMessage {...messages.requiredGenderField} />,
+          },
+        ]}
+        name="name"
+        id="name"
+        type="text"
+        required
+        placeholder={messages.genderPlaceHolder}
+      />
+    );
+
+    return responsive ? <Col {...wrapperCol}>{genderInput}</Col> : genderInput;
+  };
+
   const BirthPlaceInput = () => {
     const birthPlaceInput = (
       <FormInputWrapper
@@ -91,6 +112,31 @@ const useGetCriminalForm = ({
       <Col {...wrapperCol}>{birthPlaceInput}</Col>
     ) : (
       birthPlaceInput
+    );
+  };
+
+  const EndResultInput = () => {
+    const endResultInput = (
+      <FormInputWrapper
+        label={messages.endResult}
+        rules={[
+          {
+            required: false,
+            // message: <FormattedMessage {...messages.requiredEndResultField} />,
+          },
+        ]}
+        name="endResult"
+        id="endResult"
+        type="text"
+        required
+        placeholder={messages.endResultHolder}
+      />
+    );
+
+    return responsive ? (
+      <Col {...wrapperCol}>{endResultInput}</Col>
+    ) : (
+      endResultInput
     );
   };
 
@@ -237,12 +283,14 @@ const useGetCriminalForm = ({
     form: formInstance,
     Form: WrappedForm,
     NameInput,
+    EndResultInput,
     AddressInput,
     BirthPlaceInput,
     BirthdateInput,
     StartExecuteDateInput,
     EndExecuteDateInput,
     DoneExecuteDateInput,
+    GenderInput,
   };
 };
 

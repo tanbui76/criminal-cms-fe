@@ -105,7 +105,7 @@ export default defineMessages({
   },
   profileTypesColumn: {
     id: `${scope}.profileTypesColumn`,
-    defaultMessage: 'Profile Types',
+    defaultMessage: 'Loại đối tượng',
   },
   birthdateColumn: {
     id: `${scope}.birthdateColumn`,
@@ -141,7 +141,7 @@ export default defineMessages({
   },
   profileTypesPlaceHolder: {
     id: `${scope}.profileTypesPlaceHolder`,
-    defaultMessage: 'Select profile types',
+    defaultMessage: 'Chọn loại đối tượng',
   },
   sentenceReductionSuccess: {
     id: `${scope}.sentenceReductionSuccess`,
@@ -202,5 +202,37 @@ export default defineMessages({
   nationPlaceHolder: {
     id: `${scope}.nationPlaceHolder`,
     defaultMessage: 'Nhập Dân tộc',
+  },
+  endResult: {
+    id: `${scope}.endResult`,
+    defaultMessage: 'Lý do kết thúc',
+  },
+  endResultHolder: {
+    id: `${scope}.endResultHolder`,
+    defaultMessage: 'Nhập lí do kết thúc',
+  },
+  endResultColumn: {
+    id: `${scope}.endResultColumn`,
+    defaultMessage: 'Lý do kết thúc',
+  },
+  requiredEndResultField: {
+    id: `${scope}.requiredEndResultField`,
+    defaultMessage: 'Nhập lý do kết thúc',
+  },
+  requiredGenderField: {
+    id: `${scope}.requiredGenderField`,
+    defaultMessage: 'Nhập giới tính',
+  },
+  genderPlaceHolder: {
+    id: `${scope}.genderPlaceHolder`,
+    defaultMessage: 'Giới tính',
+  },
+  birthdateHolder: {
+    id: `${scope}.birthdateHolder`,
+    defaultMessage: 'Vui lòng nhập ngày sinh ',
+  },
+  cucumberTitle: {
+    id: `${scope}.cucumberTitle`,
+    defaultMessage: 'Quản lý đối tượng thi hành án hình sự tại cộng đồng',
   },
 });

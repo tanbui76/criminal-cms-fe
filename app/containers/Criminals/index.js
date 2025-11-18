@@ -32,6 +32,8 @@ import {
   makePageNumberSelector,
   makePageSizeSelector,
 } from './selectors';
+import CriminalFilterForm from './hooks/criminalSearchForm';
+import './css/style.less';
 
 const key = 'criminals';
 
@@ -83,6 +85,11 @@ function Criminals() {
     dispatch(deleteItemByIdAction(record.id));
   };
 
+  const handleSearch = (filterCriteria) => {
+    dispatch(setSearchKeywordAction(filterCriteria));
+    loadCriminals();
+  };
+
   useEffect(() => {
     if (id) {
       dispatch(getCriminalByIdAction());
@@ -98,7 +105,7 @@ function Criminals() {
           </Helmet>
         )}
       </FormattedMessage>
-      <div className="truthy-breadcrumb">
+      <div className="truthy-breadcrumb title-cucumber">
         <h2>
           <FormattedMessage {...messages.helmetTitle} />
         </h2>
@@ -109,7 +116,7 @@ function Criminals() {
             </NavLink>
           </Breadcrumb.Item>
           <Breadcrumb.Item className="current active">
-            <FormattedMessage {...messages.helmetTitle} />
+            <FormattedMessage {...messages.cucumberTitle} />
           </Breadcrumb.Item>
         </Breadcrumb>
       </div>
@@ -120,13 +127,12 @@ function Criminals() {
               <PlusOutlined /> <FormattedMessage {...messages.addCriminal} />
             </Button>
           </div>
-          <div className="d-flex ml-auto search-wrap">
-            <SearchInput isLoading={isLoading} onSearch={onKeywordChange} />
-          </div>
         </div>
       </div>
 
       <div className="truthy-table ">
+        <CriminalFilterForm onSearch={handleSearch} />
+        <br />
         <CriminalTable onEdit={onEdit} onDelete={onDelete} onView={onView} />
       </div>
       <CreateCriminalModal

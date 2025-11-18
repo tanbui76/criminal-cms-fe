@@ -103,12 +103,10 @@ const CreateCriminalModal = ({ onCancel, visible }) => {
       const formattedValues = {
         ...rawValues,
         gender: Boolean(parseInt(rawValues.gender)),
-        birthdate: rawValues.birthdate?.format('YYYY-MM-DD'),
         startExecuteDate: rawValues.startExecuteDate?.format('YYYY-MM-DD'),
         endExecuteDate: rawValues.endExecuteDate?.format('YYYY-MM-DD'),
         doneExecuteDate: rawValues.doneExecuteDate?.format('YYYY-MM-DD'),
       };
-      console.log('Form validation error:', formattedValues);
 
       dispatch(setFormValues(formattedValues));
       dispatch(submitFormAction());
@@ -335,7 +333,10 @@ const CreateCriminalModal = ({ onCancel, visible }) => {
             },
           ]}
         >
-          <DatePicker format="DD/MM/YYYY" style={{ width: '100%' }} />
+          <Input
+            placeholder={intl.formatMessage(messages.birthdateHolder)}
+            style={{ padding: '0 12px' }}
+          />
         </Form.Item>
 
         <Form.Item
@@ -350,7 +351,11 @@ const CreateCriminalModal = ({ onCancel, visible }) => {
             },
           ]}
         >
-          <DatePicker format="DD/MM/YYYY" style={{ width: '100%' }} />
+          <DatePicker
+            format="DD/MM/YYYY"
+            placeholder="Nhập ngày bắt đầu"
+            style={{ width: '100%' }}
+          />
         </Form.Item>
 
         <Form.Item
@@ -363,14 +368,41 @@ const CreateCriminalModal = ({ onCancel, visible }) => {
             },
           ]}
         >
-          <DatePicker format="DD/MM/YYYY" style={{ width: '100%' }} />
+          <DatePicker
+            format="DD/MM/YYYY"
+            placeholder="Nhập ngày kết thúc"
+            style={{ width: '100%' }}
+          />
         </Form.Item>
 
         <Form.Item
           label={intl.formatMessage(messages.doneExecuteDate)}
           name="doneExecuteDate"
         >
-          <DatePicker format="DD/MM/YYYY" style={{ width: '100%' }} />
+          <DatePicker
+            format="DD/MM/YYYY"
+            placeholder="Nhập ngày chấp hành án xong"
+            style={{ width: '100%' }}
+          />
+        </Form.Item>
+
+        <Form.Item
+          label={intl.formatMessage(messages.endResultColumn)}
+          name="endResult"
+          rules={[
+            {
+              required: false,
+              // message: intl.formatMessage(messages.requiredEndResultField),
+            },
+          ]}
+        >
+          <TextArea
+            placeholder={intl.formatMessage(messages.endResultHolder)}
+            rows={3}
+            showCount
+            maxLength={500}
+            className="ant-input-text-area"
+          />
         </Form.Item>
 
         <Form.Item

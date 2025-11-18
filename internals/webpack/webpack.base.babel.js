@@ -5,6 +5,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const Dotenv = require('dotenv-webpack');
+const { start } = require('repl');
 
 module.exports = (options) => ({
   mode: options.mode,
@@ -21,10 +22,19 @@ module.exports = (options) => ({
       {
         test: /\.jsx?$/, // Transform all .js and .jsx files required somewhere with Babel
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: options.babelQuery,
-        },
+        use: [
+          {
+            loader: 'thread-loader',
+            options: {
+              workers: require('os').cpus().length - 1, // hoặc CPU core - 1
+              workerParallelJobs: 50,
+            },
+          },
+          {
+            loader: 'babel-loader',
+            options: options.babelQuery,
+          },
+        ],
       },
       {
         test: /\.less$/i,
@@ -149,6 +159,7 @@ module.exports = (options) => ({
     mainFields: ['browser', 'jsnext:main', 'main'],
   },
   devtool: options.devtool,
+  stats: options.stats,
   target: 'web', // Make web variables accessible to webpack, e.g. window
   performance: options.performance || {},
 });

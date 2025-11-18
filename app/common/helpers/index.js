@@ -2,12 +2,12 @@ const buildQueryString = (keywords, pageNumber, limit) => {
   const queryObj = {
     page: pageNumber > 0 ? pageNumber : 1,
     limit: limit > 0 ? limit : 10,
+    ...keywords,
   };
-  if (keywords && keywords.trim().length > 0) {
-    queryObj.keywords = keywords;
-  }
-  return Object.keys(queryObj)
-    .map((key) => `${key}=${queryObj[key]}`)
+
+  return Object.entries(queryObj)
+    .filter(([_, value]) => value !== undefined && value !== null && value !== '')
+    .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
     .join('&');
 };
 
